@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Register</h1>
+      {% if error_message %}
+      <p class="error">{{ error_message }}</p>
+      {% endif %}
+      <form method="POST" action="{{ url_for('register') }}">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" required class="form-control" placeholder="Enter your username" value="{{ request.form['username'] if request.method == 'POST' else '' }}">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required class="form-control" placeholder="Enter your password">
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password</label>
+          <input type="password" name="confirm_password" id="confirm_password" required class="form-control" placeholder="Confirm your password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+      </form>
+      <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+  </body>
+</html>

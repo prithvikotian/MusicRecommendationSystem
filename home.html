@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <title>Music Recommendation System</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Music Recommendation System</h1>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label for="song">Enter a song you like:</label>
+          <input type="text" id="song" name="song">
+        </div>
+        <button class="btn" type="submit">Get Recommendations</button>
+      </form>
+      <div class="music-note">
+        <img src="{{ url_for('static', filename='images/music.jpg') }}" alt="music note">
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login to Music Recommender</h1>
+      {% if not registered %}
+      <p>New user? <a href="{{ url_for('register') }}">Register here</a>.</p>
+      {% endif %}
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+
+      {% endif %}
+      {% endwith %}
+        <form method="POST" action="{{ url_for('login') }}">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required class="form-control" placeholder="Enter your username" value="{{ request.form['username'] if request.method == 'POST' else '' }}">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required class="form-control" placeholder="Enter your password">
+          </div>
+          {% if error_message and request.method == 'POST' %}
+          <p class="error">{{ error_message }}</p>
+          {% endif %}
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+
+    </div>
+  </body>
+</html>

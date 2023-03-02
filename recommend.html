@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Music Recommendation System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='recommend.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+  </head>
+  <body>
+    <h1>Music Recommendation System</h1>
+    <hr>
+    <h2>Recommended Songs:</h2>
+    <ul>
+      {% for song in recommendations %}
+        <li>
+          <span>{{ song }}</span>
+          <div class="music-controls">
+            <audio class="music-player" src="{{ url_for('static', filename='songs/' + song + '.mp3') }}"></audio>
+            <div class="play-pause-button" onclick="togglePlayPause(this)">
+              <i class="far fa-play-circle"></i>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <script>
+      function togglePlayPause(button) {
+        var audioPlayer = button.parentElement.querySelector('.music-player');
+        var progressBar = button.parentElement.querySelector('.progress-bar');
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+          button.innerHTML = '<i class="far fa-pause-circle"></i>';
+          updateProgressBar(audioPlayer, progressBar);
+        } else {
+          audioPlayer.pause();
+          button.innerHTML = '<i class="far fa-play-circle"></i>';
+        }
+      }
+
+      function updateProgressBar(audioPlayer, progressBar) {
+        progressBar.style.width = (audioPlayer.currentTime / audioPlayer.duration) * 100 + '%';
+        if (!audioPlayer.paused) {
+          setTimeout(function() {
+            updateProgressBar(audioPlayer, progressBar);
+          }, 100);
+        }
+      }
+    </script>
+  </body>
+</html>
